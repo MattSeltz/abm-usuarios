@@ -34,5 +34,18 @@ input:last-child{
 
 .grid-cont{
     height: 90vh;
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.task{
+    border: 5px solid #000;
+    height: 150px;
+    width: 150px;
+    margin: 50px;
+    border-radius: 5px;
+    padding: 5px;
+    background: #adf;
 }
