@@ -1,21 +1,30 @@
-import { saveTask,getTasks } from "./firebase.js";
+import { saveTask,getTasks,onGetTasks,deleteTask } from "./firebase.js";
 
 addEventListener("DOMContentLoaded",async () => {
-    const querySnapshot = await getTasks();
+    onGetTasks((querySnapshot) => {
+        let html = "";
 
-    let html = "";
+        querySnapshot.forEach(doc => {
+            const task = doc.data();
+            html += `
+                <div class="task">
+                    <h3>${task.titulo}</h3>
+                    <p>${task.tarea}</p>
+                    <button class="btns" data-id="${doc.id}">Eliminar</button>
+                </div>
+            `
+        });
 
-    querySnapshot.forEach(doc => {
-        const task = doc.data();
-        html += `
-            <div class="task">
-                <h3>${task.titulo}</h3>
-                <p>${task.tarea}</p>
-            </div>
-        `
-    });
+        gridCont.innerHTML = html;
 
-    gridCont.innerHTML = html;
+        const btns = gridCont.querySelectorAll(".btns");
+
+        btns.forEach(btn => {
+            btn.addEventListener("click",e => {
+                deleteTask(e.target.dataset.id);
+            });
+        });
+    })
 });
 
 const form = document.getElementById("form");

@@ -4,7 +4,10 @@ import {
     getFirestore,
     collection,
     addDoc,
-    getDocs
+    getDocs,
+    deleteDoc,
+    onSnapshot,
+    doc
  } from "https://www.gstatic.com/firebasejs/9.11.0/firebase-firestore.js"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -30,3 +33,7 @@ const db = getFirestore();
 export const saveTask = (titulo,tarea) => addDoc(collection(db, "tasks"),{titulo,tarea})
 
 export const getTasks = () => getDocs(collection(db, "tasks"));
+
+export const onGetTasks = (callback) => onSnapshot(collection(db, "tasks"),callback);
+
+export const deleteTask = id => deleteDoc(doc(db, "tasks",id));
