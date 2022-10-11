@@ -23,6 +23,15 @@ input{
     box-shadow: 2.5px 2.5px #000;
 }
 
+input:last-child{
+    background: #000;
+    color: #fff;
+    padding: 5px;
+    border: 2.5px solid #fff;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
 .grid-cont{
     height: 90vh;
     display: grid;
