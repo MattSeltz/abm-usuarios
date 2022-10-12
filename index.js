@@ -1,4 +1,4 @@
-import { saveTask,getTasks,onGetTasks,deleteTask,getTask } from "./firebase.js";
+import { saveTask,getTasks,onGetTasks,deleteTask,getTask,updateTask } from "./firebase.js";
 
 addEventListener("DOMContentLoaded",async () => {
     onGetTasks((querySnapshot) => {
@@ -37,6 +37,9 @@ addEventListener("DOMContentLoaded",async () => {
                 tarea.value = task.tarea;
 
                 editStatus = true;
+                id = doc.id;
+
+                crear.value = "Actualizar";
             });
         });
 
@@ -50,14 +53,20 @@ const crear = document.getElementById("crear");
 const gridCont = document.querySelector(".grid-cont");
 
 let editStatus = false;
+let id = "";
 
 form.addEventListener("submit",e => {
     e.preventDefault();
 
-    if(editStatus) {
-        console.log("Actualizando");
-    }else{    
+    if(!editStatus) {
         saveTask(titulo.value,tarea.value);
+    }else{    
+        updateTask(id,{
+            titulo: titulo.value,
+            tarea: tarea.value
+        });
+
+        editStatus = false;
     }
 
     form.reset();
