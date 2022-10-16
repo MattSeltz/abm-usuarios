@@ -37,7 +37,7 @@ addEventListener("DOMContentLoaded",async () => {
         querySnapshot.forEach(doc => {
             const task = doc.data();
             html += `
-                <div class="task">
+                <div ${task.prioridad ? `style="background-color: #f00"` : ''} class="task">
                     <h3>${task.titulo}</h3>
                     <p>${task.tarea}</p>
                     <button class="btns" data-id="${doc.id}">Eliminar</button>
@@ -83,6 +83,8 @@ const tarea = document.getElementById("tarea");
 const crear = document.getElementById("crear");
 const gridCont = document.querySelector(".grid-cont");
 
+let prioridad = document.getElementById("prioridad");
+
 let editStatus = false;
 let id = "";
 
@@ -90,7 +92,7 @@ form.addEventListener("submit",e => {
     e.preventDefault();
 
     if(!editStatus) {
-        saveTask(titulo.value,tarea.value);
+        saveTask(titulo.value,tarea.value,prioridad.checked);
     }else{    
         updateTask(id,{
             titulo: titulo.value,

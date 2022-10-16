@@ -30,7 +30,13 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore();
 
-export const saveTask = (titulo,tarea) => addDoc(collection(db, "tasks"),{titulo,tarea})
+export const saveTask = (titulo,tarea,prioridad) => {
+  addDoc(collection(db, "tasks"),{titulo,tarea,prioridad});
+
+  if(prioridad) {
+    console.log("Works");
+  }
+}
 
 export const getTasks = () => getDocs(collection(db, "tasks"));
 
